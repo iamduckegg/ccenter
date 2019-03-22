@@ -11,34 +11,39 @@
 </head>
 <body class="">
 	<div style="padding: 10px 10px 0px 10px;">
-		<form class="layui-form layui-form-pane" action="${pageContext.request.contextPath}/contract/client/save" >
+		<form lay-filter="clientForm" class="layui-form layui-form-pane" action="${pageContext.request.contextPath}/contract/client/modify" >
 			<!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+			<input type="hidden" name="clientId" />
+			<!-- 表单开始 -->
 			<div class="layui-form-item">
 				<label class="layui-form-label">客户姓名</label>
 				<div class="layui-input-block">
-					<input type="text" name="clientName" placeholder="请输入" autocomplete="off" class="layui-input">
+					<input type="text" name="clientName" maxlength="50" placeholder="请输入" lay-verify="required" autocomplete="off" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">证件号码</label>
 				<div class="layui-input-block">
-					<input type="text" name="cardNum" placeholder="请输入" autocomplete="off" class="layui-input">
+					<input type="text" name="cardNum" maxlength="20" placeholder="请输入" lay-verify="required" autocomplete="off" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">客户类型</label>
 				<div class="layui-input-block">
-					<select name="clientType" lay-filter="aihao">
+					<select name="clientType" lay-filter="aihao" lay-verify="required">
 						<option value="">请选择</option>
+						<option value="1">企业客户</option>
+						<option value="2">个人客户</option>
 					</select>
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">地址</label>
 				<div class="layui-input-block">
-					<input type="text" name="site" placeholder="请输入" autocomplete="off" class="layui-input">
+					<input type="text" name="site" maxlength="200" placeholder="请输入" autocomplete="off" class="layui-input">
 				</div>
 			</div>
+			<!-- 表单结束 -->
 			<div class="layui-form-item" style="text-align: center;">
 				<div class="layui-btn-container">
 					<button class="layui-btn" lay-submit="" lay-filter="save" id="save">保存</button>
@@ -55,17 +60,28 @@ layui.use([ 'form', 'layedit', 'laydate' ], function() {
 	var form = layui.form  
 	  ,layer = layui.layer
 	  ,laydate = layui.laydate;
-	var clientId = '${clientId }'
-	debugger;
+	var client = eval('(' + '${client }' + ')');
+	form.val("clientForm", {
+		  "clientId": client.clientId
+		  ,"clientName": client.clientName
+		  ,"cardNum": client.cardNum
+		  ,"clientType": client.clientType
+		  ,"site": client.site
+	})
+	
 	//parent 是 JS 自带的全局对象，可用于操作父页面
 	 var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+	 
+	 //自定义验证规则
+	 form.verify({
+	   
+	 });
 	 //保存
 	 $('#save').on('click', function(){
 		  //监听提交
-		  form.on('submit(save)', function(data){
-		  	  //parent.$('#ticketNum').text('我被改变了');
-			  window.parent.location.reload();
+		  form.on('submit(save)',function(data){
 			  parent.layer.close(index);
+			  window.parent.location.reload();
 		  });
 	 })
 			  

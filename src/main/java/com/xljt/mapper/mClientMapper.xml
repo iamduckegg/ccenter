@@ -16,6 +16,37 @@
 			mcl.update_date updateDate
 			FROM
 			m_client AS mcl
+			
+			WHERE
+			1=1
+			<if test="null != clientName and '' != clientName">and mcl.client_name =  #{clientName} </if>
+	        <if test="null != clientNum  and '' != clientNum" >and mcl.client_num = #{clientNum } </if>
+	        <if test="null != site 		 and '' != site"      >and mcl.site = #{site		} </if>
+	        <if test="null != clientType and '' != clientType">and mcl.client_type = #{clientType} </if>
+	        <if test="null != cardNum 	 and '' != cardNum"   >and mcl.card_num = #{cardNum	} </if>
+	        <if test="null != createDate and '' != createDate">and mcl.create_date = #{updateDate} </if>
+	        <if test="null != updateDate and '' != updateDate">and mcl.update_date = #{updateDate} </if>
+	        
+    </select>
+    
+    <!-- 查询实例 -->
+    <select id="selectClient" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+			mcl.client_id clientId,
+			mcl.client_name clientName,
+			mcl.client_num clientNum,
+			mcl.site,
+			mcl.client_type clientType,
+			mcl.card_num cardNum,
+			mcl.create_date createDate,
+			mcl.update_date updateDate
+			FROM
+			m_client AS mcl
+			
+			WHERE
+			1=1
+			AND mcl.client_id = #{clientId}
+			
     </select>
 
     <!-- 新增客户 -->
@@ -40,6 +71,21 @@
         <if test="null != updateDate and '' != updateDate"> #{updateDate}   </if>
 			)
     </insert>
-
+    <!-- 修改客户 -->
+    <update id="updateClient" parameterType="java.util.Map">
+        UPDATE m_client 
+        	SET
+        	<if test="null != clientName and '' != clientName"> client_name = #{clientName}, </if>
+        	<if test="null != clientNum  and '' != clientNum" >	client_num = #{clientNum },  </if>
+	        <if test="null != site 		 and '' != site"      >	site = #{site		},  </if>
+	        <if test="null != clientType and '' != clientType">	client_type = #{clientType},  </if>
+	        <if test="null != cardNum 	 and '' != cardNum"   >	card_num = #{cardNum	},  </if>
+	        <if test="null != updateDate and '' != updateDate"> update_date = #{updateDate}   </if>
+		WHERE client_id = #{clientId}
+    </update>
+    <!-- 删除客户 -->
+    <delete id="deleteClient" parameterType="java.lang.String">
+		delete from m_client WHERE client_id = #{clientId}
+    </delete>
     
 </mapper>

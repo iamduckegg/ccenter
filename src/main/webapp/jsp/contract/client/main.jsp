@@ -56,6 +56,7 @@ layui.use(['form','table','laypage','laydate'], function(){
 		,cols: [[ //表头
 		     {type: 'checkbox', fixed: 'left'}
 			,{type: 'numbers', title: '序号' }
+			,{field: 'clientId', hide: true}
 			,{field: 'clientName', title: '客户名', width:120 }
 			,{field: 'clientNum', title: '客户编号', width:100 }
 			,{field: 'clientType', title: '客户类型', width:100 }
@@ -77,28 +78,56 @@ layui.use(['form','table','laypage','laydate'], function(){
 				  title: '新增',
 				  shadeClose: false,
 				  shade: 0.8,
-				  area: ['50%', '330px'],
+				  area: ['50%', '350px'],
 				  content: './client/toAdd'
 				});
-	      break;
+	    	  break;
 	      case 'edit':
 	    	  var data = checkStatus.data;
 	    	  if(data.length==1){
-		    	  debugger;
 		    	  layer.open({
 					  type: 2,
 					  title: '修改',
 					  shadeClose: false,
 					  shade: 0.8,
-					  area: ['50%', '330px'],
+					  area: ['50%', '350px'],
 					  content: './client/toEdit?clientId='+data[0].clientId
 					});
 	    	  } else if (data.length==0) {
-	    		  layer.alert("请选择一条");
+	    		  layer.msg("请选择一条");
 	    	  } else {
-	    		  layer.alert("只能选择一条");
+	    		  layer.msg("只能选择一条");
 	    	  }
-	      break;
+	    	  break;
+	      case 'delete':
+	    	  var data = checkStatus.data;
+	    	  if(data.length==0){
+	    		  layer.msg("请选择一条");
+	    	  }else {
+	    		  layer.msg('确定删除？', {
+	    			  time: 0 //不自动关闭
+	    			  ,btn: ['确认', '取消']
+	    			  ,yes: function(index){
+	    			    layer.close(index);
+		    			  var ids = "";  
+			    		  for (var i = 0; i<data.length; i++) {
+			    			  ids += data[i].clientId + ",";
+			    		  }
+			    		  ids=ids.substring(0,ids.length-1);
+		    			  $.ajax({
+		    				  url:"./client/remove"
+		    				  ,type:"GET"
+		    				  ,dataType:"JSON"
+		    				  ,data:{ clientIds : ids}
+		    				  ,success: function(data){
+		    					  location.reload(); 
+		    				  }
+		    			  })
+	    			  }
+	    		  });
+	    		  
+	    	  }
+	    	  break;
 	    };
 	});
 	
