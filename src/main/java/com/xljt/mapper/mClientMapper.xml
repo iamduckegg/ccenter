@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.xljt.mapper.MClientMapper">
+    
+    <!-- 分页查询 -->
+    <select id="selectClientList" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+			mcl.client_id clientId,
+			mcl.client_name clientName,
+			mcl.client_num clientNum,
+			mcl.site,
+			mcl.client_type clientType,
+			mcl.card_num cardNum,
+			mcl.create_date createDate,
+			mcl.update_date updateDate
+			FROM
+			m_client AS mcl
+    </select>
+
+    <!-- 新增客户 -->
+    <insert id="insertClient" parameterType="java.util.Map">
+        INSERT INTO m_client ( 
+        <if test="null != clientName and '' != clientName"> client_name ,  </if>
+        <if test="null != clientNum  and '' != clientNum" >	client_num  ,  </if>
+        <if test="null != site 		 and '' != site"      >	site        ,  </if>
+        <if test="null != clientType and '' != clientType">	client_type ,  </if>
+        <if test="null != cardNum 	 and '' != cardNum"   >	card_num    ,  </if>
+        <if test="null != createDate and '' != createDate"> create_date ,  </if>
+        <if test="null != updateDate and '' != updateDate"> update_date    </if>
+			)
+		VALUES
+			( 
+		<if test="null != clientName and '' != clientName"> #{clientName},  </if>
+        <if test="null != clientNum  and '' != clientNum" >	#{clientNum },  </if>
+        <if test="null != site 		 and '' != site"      >	#{site		},  </if>
+        <if test="null != clientType and '' != clientType">	#{clientType},  </if>
+        <if test="null != cardNum 	 and '' != cardNum"   >	#{cardNum	},  </if>
+        <if test="null != createDate and '' != createDate"> #{updateDate},  </if>
+        <if test="null != updateDate and '' != updateDate"> #{updateDate}   </if>
+			)
+    </insert>
+
+    
+</mapper>
