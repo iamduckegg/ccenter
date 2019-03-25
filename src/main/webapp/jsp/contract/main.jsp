@@ -22,11 +22,11 @@
 		        <li class="layui-nav-item layui-nav-itemed">
 		          <a class="" href="javascript:;">功能列表</a>
 		          <dl class="layui-nav-child">
-		            <dd><a href="javascript:;">车辆列表</a></dd>
-		            <dd><a href="">合同列表</a></dd>
-		            <dd><a href="javascript:;" id="client_menu" >客户列表</a></dd>
-		            <dd><a href="javascript:;">联系人列表</a></dd>
-		            <dd><a href="javascript:;">出入库记录</a></dd>
+		            <dd><a href="javascript:;" onclick="clickMenu('car')">车辆列表</a></dd>
+		            <dd><a href="javascript:;" onclick="clickMenu('client')" >合同列表</a></dd>
+		            <dd><a href="javascript:;" onclick="clickMenu('contract')" >客户列表</a></dd>
+		            <dd><a href="javascript:;" onclick="clickMenu('contacter')" >联系人列表</a></dd>
+		            <dd><a href="javascript:;" onclick="clickMenu('inventoryHis')" >出入库记录</a></dd>
 		          </dl>
 		        </li>
 		        <li class="layui-nav-item">
@@ -43,7 +43,7 @@
 		  <div class="layui-body" style="height: 100%" >
 		    <!-- 内容主体区域 -->
 		    <div style="padding: 15px; height: 95%">
-			    <iframe src="${pageContext.request.contextPath}/contract/client" frameborder="0" id="" style="width: 100%; height: 100%;"></iframe>
+			    <iframe id="iframe" src="" frameborder="0" id="" style="width: 100%; height: 100%;"></iframe>
 			</div>
 		  </div>
 		  
@@ -57,8 +57,27 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/layui/layui.js?v=20190305"></script>
 
 <script>
+var path = '${pageContext.request.contextPath}';
 layui.use('element', function(){
 	var element = layui.element;
+	
 });
+function clickMenu(menu){
+	if(menu=="car"){
+		$("#iframe").attr("src",path+"/contract/car")
+	}
+	if(menu=="client"){
+		$("#iframe").attr("src",path+"/contract/client")
+	}
+	if(menu=="contacter"){
+		$("#iframe").attr("src",path+"/contract/contacter")
+	}
+	if(menu=="contract"){
+		$("#iframe").attr("src",path+"/contract/contract")
+	}
+	if(menu=="inventoryHis"){
+		$("#iframe").attr("src",path+"/contract/inventoryHis")
+	}
+}
 </script>
 </html>

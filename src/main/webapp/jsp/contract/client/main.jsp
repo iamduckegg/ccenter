@@ -13,10 +13,17 @@
 	<title>客户管理</title>
 </head>
 <body>
-	<div class="layui-form clientTable"  style="height: 40px; margin-top: 2px;">
+	<div class="layui-form clientTable" lay-filter="clientSearch" style="height: 40px; margin-top: 2px;">
 		<div class="layui-inline" style="margin-top: 5px;">
 			<div class="layui-input-inline" style="width: 200px;">
 		      <input type="text" id="clientName" required lay-verify="required" placeholder="客户名" autocomplete="off" class="layui-input"> 
+		    </div>
+			<div class="layui-input-inline" style="width: 200px;">
+		      <select id="clientType" lay-verify="">
+		      	<option value="">客户类型</option>
+		      	<option value="1">企业客户</option>
+		      	<option value="2">个人客户</option>
+		      </select> 
 		    </div>
 			<div class="layui-btn" data-type="reload" style="margin-left: 58px;">搜索</div>
 		  	<div class="layui-btn" id="cleanSearch" style="">清空</div>
@@ -41,7 +48,6 @@ layui.use(['form','table','laypage','laydate'], function(){
 	var laypage = layui.laypage;
 	var form = layui.form;
 	var laydate = layui.laydate;
-
 	//第一个实例
 	table.render({
 		elem: '#client_table'
@@ -67,7 +73,6 @@ layui.use(['form','table','laypage','laydate'], function(){
 		]]
 		,id:"reload"
 	});
-	
 	//头工具栏事件
 	table.on('toolbar(client_table)', function(obj){
 	    var checkStatus = table.checkStatus(obj.config.id);
@@ -130,30 +135,31 @@ layui.use(['form','table','laypage','laydate'], function(){
 	    	  break;
 	    };
 	});
-	
 	//搜索按钮
 	var $ = layui.$, active = {
 	        reload: function(){
-	        	var clientName = $("#clientName");
-	        	
 	            table.reload('reload', {
 	                page: {
 	                    curr: 1 //重新从第 1 页开始
 	                  }
 	                ,where: {
-	                	clientName: clientName.val()
-
+	                	clientName: $("#clientName").val()
+	                	,clientType: $("#clientType").val()
 	                }
 	            });
 	        }
 	    };
-	
 	//搜索按钮点击事件
 	$('.clientTable .layui-btn').on('click', function(){
 	    var type = $(this).data('type');
 	    active[type] ? active[type].call(this) : '';
 	  });
-	
+	//搜索条件清空
+	$("#cleanSearch").click( function () { 
+		$("#clientName").val("");
+		$("#clientType").val("");
+		form.render();
+	})
 });
 
 </script>

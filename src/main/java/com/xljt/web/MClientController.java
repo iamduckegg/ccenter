@@ -28,13 +28,23 @@ public class MClientController {
 	private MClientService mClientService;
 	
 	private static Logger logger = LoggerFactory.getLogger(MClientController.class);
-	
+	/**
+	 * 跳转客户列表页
+	 * @param request
+	 * @param mClientEntity
+	 * @return
+	 */
 	@RequestMapping("")
 	public ModelAndView toMain(HttpServletRequest request, MClientEntity mClientEntity){
 		ModelAndView mv = new ModelAndView("contract/client/main");
 		return mv;
 	}
-	
+	/**
+	 * 查询客户列表
+	 * @param request
+	 * @param mClientEntity
+	 * @return
+	 */
 	@RequestMapping("/list")
 	@ResponseBody
 	public Map<String, Object> list(HttpServletRequest request, MClientEntity mClientEntity){
@@ -49,13 +59,22 @@ public class MClientController {
 		map.put("data", result);
 		return map;
 	}
-	
+	/**
+	 * 跳转新增页
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/toAdd")
 	public ModelAndView toAdd(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView("contract/client/add");
 		return mv;
 	}
-	
+	/**
+	 * 跳转编辑页
+	 * @param request
+	 * @param mClientEntity
+	 * @return
+	 */
 	@RequestMapping("/toEdit")
 	public ModelAndView toEdit(HttpServletRequest request, MClientEntity mClientEntity){
 		ModelAndView mv = new ModelAndView("contract/client/edit");
@@ -64,7 +83,11 @@ public class MClientController {
 		mv.addObject("client", json);
 		return mv;
 	}
-	
+	/**
+	 * 保存
+	 * @param mClientEntity
+	 * @return
+	 */
 	@RequestMapping("/save")
 	@ResponseBody
 	public Map<String, Object> saveClient(MClientEntity mClientEntity){
@@ -78,7 +101,11 @@ public class MClientController {
 		map.put("msg", "success");
 		return map;
 	}
-	
+	/**
+	 * 修改
+	 * @param mClientEntity
+	 * @return
+	 */
 	@RequestMapping("/modify")
 	@ResponseBody
 	public Map<String, Object> modifyClient(MClientEntity mClientEntity){
@@ -92,7 +119,11 @@ public class MClientController {
 		map.put("msg", "success");
 		return map;
 	}
-	
+	/**
+	 * 删除
+	 * @param clientIds
+	 * @return
+	 */
 	@RequestMapping("/remove")
 	@ResponseBody
 	public Map<String, Object> removeClient(String clientIds){

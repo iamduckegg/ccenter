@@ -10,16 +10,16 @@
 			mcl.client_name clientName,
 			mcl.client_num clientNum,
 			mcl.site,
-			mcl.client_type clientType,
+			md2.code_name clientType,
 			mcl.card_num cardNum,
 			mcl.create_date createDate,
 			mcl.update_date updateDate
 			FROM
 			m_client AS mcl
-			
+			LEFT JOIN (SELECT * FROM m_dic md WHERE md.column_id='client_type') md2 on mcl.client_type = md2.code_id
 			WHERE
 			1=1
-			<if test="null != clientName and '' != clientName">and mcl.client_name =  #{clientName} </if>
+			<if test="null != clientName and '' != clientName">and mcl.client_name LIKE "%"#{clientName}"%"  </if>
 	        <if test="null != clientNum  and '' != clientNum" >and mcl.client_num = #{clientNum } </if>
 	        <if test="null != site 		 and '' != site"      >and mcl.site = #{site		} </if>
 	        <if test="null != clientType and '' != clientType">and mcl.client_type = #{clientType} </if>
