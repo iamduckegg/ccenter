@@ -23,8 +23,8 @@
 		          <a class="" href="javascript:;">功能列表</a>
 		          <dl class="layui-nav-child">
 		            <dd><a href="javascript:;" onclick="clickMenu('car')">车辆列表</a></dd>
-		            <dd><a href="javascript:;" onclick="clickMenu('client')" >合同列表</a></dd>
-		            <dd><a href="javascript:;" onclick="clickMenu('contract')" >客户列表</a></dd>
+		            <dd><a href="javascript:;" onclick="clickMenu('contract')" >合同列表</a></dd>
+		            <dd><a href="javascript:;" onclick="clickMenu('client')" >客户列表</a></dd>
 		            <dd><a href="javascript:;" onclick="clickMenu('contacter')" >联系人列表</a></dd>
 		            <dd><a href="javascript:;" onclick="clickMenu('inventoryHis')" >出入库记录</a></dd>
 		          </dl>

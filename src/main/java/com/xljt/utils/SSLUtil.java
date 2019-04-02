@@ -1,4 +1,4 @@
-package com.xljt.common;
+package com.xljt.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,6 +15,8 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import org.springframework.stereotype.Controller;
+
+import com.xljt.common.Basic;
 
 @Controller
 public class SSLUtil {

@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.springframework.util.StringUtils;
 
 import com.xljt.entity.RepairDetailVo;
+import com.xljt.utils.SSLUtil;
 
 public class Test {
 	public static void main(String[] args) {

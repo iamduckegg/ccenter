@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.xljt.common.Basic;
-import com.xljt.common.SSLUtil;
 import com.xljt.dao.CallBasicDao;
 import com.xljt.dao.CallOrderDao;
 import com.xljt.dao.CallServicerDao;
@@ -30,6 +29,7 @@ import com.xljt.entity.Page;
 import com.xljt.entity.RepairDetailVo;
 import com.xljt.entity.RescueDetailVo;
 import com.xljt.service.CallOrderService;
+import com.xljt.utils.SSLUtil;
 import com.xljt.web.CallOrderController;
 
 @Service
