@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.xljt.mapper.CarInfoMapper">
+    
+    <!-- 分页查询 -->
+    <select id="selectCarInfoList" parameterType="java.util.Map" resultType="java.util.Map">
+	SELECT
+		ci.car_id AS carId,
+		ci.car_number AS carNumber,
+		ci.vin,
+		ci.engine_number AS engineNumber,
+		ci.dept,
+		ci.business_state AS businessState,
+		ci.brand,
+		ci.car_type AS carType,
+		ci.notice_num AS noticeNum
+		FROM
+		car_info AS ci
+        WHERE
+			1=1
+		<if test="null != carNumber 	and '' != carNumber"	> and car_number = #{carNumber}</if>
+        <if test="null != vin 			and '' != vin" 			> and vin = #{vin}</if>
+        <if test="null != engineNumber 	and '' != engineNumber" > and engine_number = #{engineNumber}</if>
+        <if test="null != dept 			and '' != dept"			> and dept = #{dept}</if>
+        <if test="null != businessState and '' != businessState"> and business_state = #{businessState}</if>
+        <if test="null != brand 		and '' != brand"		> and brand = #{brand}</if>
+        <if test="null != carType 		and '' != carType"		> and car_type = #{carType}</if>
+        <if test="null != noticeNum 	and '' != noticeNum"	> and notice_num = #{noticeNum}</if>
+	        
+    </select>
+    
+   
+    
+</mapper>

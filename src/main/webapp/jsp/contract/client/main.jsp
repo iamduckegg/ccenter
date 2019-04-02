@@ -37,17 +37,20 @@
 	  <button class="layui-btn" lay-event="add">增加</button>
 	  <button class="layui-btn" lay-event="edit">编辑</button>
 	  <button class="layui-btn" lay-event="delete">删除</button>
+	  <button class="layui-btn" id="import">导入</button>
+	  <a class="layui-btn" id="export" href="${pageContext.request.contextPath}/contract/client/export/" >导出</a>
 	</div>
 	</script>
 </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.3.1.min.js?v=20190305"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/layui/layui.js?v=20190305"></script>
 <script>
-layui.use(['form','table','laypage','laydate'], function(){
-	var table = layui.table;
-	var laypage = layui.laypage;
-	var form = layui.form;
-	var laydate = layui.laydate;
+layui.use(['form','table','laypage','laydate','upload'], function(){
+	var table = layui.table
+	,laypage = layui.laypage
+	,form = layui.form
+	,laydate = layui.laydate
+	,upload = layui.upload;
 	//第一个实例
 	table.render({
 		elem: '#client_table'
@@ -73,6 +76,16 @@ layui.use(['form','table','laypage','laydate'], function(){
 		]]
 		,id:"reload"
 	});
+	
+	upload.render({
+		elem: '#import'
+		,url: './client/import'
+		,accept: 'file' //普通文件
+		,done: function(res){
+		console.log(res)
+		}
+	});
+
 	//头工具栏事件
 	table.on('toolbar(client_table)', function(obj){
 	    var checkStatus = table.checkStatus(obj.config.id);

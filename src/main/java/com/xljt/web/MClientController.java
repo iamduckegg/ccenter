@@ -1,5 +1,6 @@
 package com.xljt.web;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +21,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xljt.entity.MClientEntity;
 import com.xljt.service.MClientService;
+import com.xljt.utils.DownloadUtil;
+import com.xljt.utils.UploadUtil;
 
 @Controller
 @RequestMapping(value="contract/client")
@@ -136,6 +140,23 @@ public class MClientController {
 		}
 		map.put("msg", "success");
 		return map;
+	}
+	
+	@RequestMapping("/import")
+	public Map<String, Object> importClient(HttpServletRequest request){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		try {
+			UploadUtil.upload(request);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+	
+	@RequestMapping("/export")
+	public ResponseEntity<byte[]> exportClient(HttpServletRequest request) throws IOException{
+		return new DownloadUtil().export(null, null);
 	}
 
 }
